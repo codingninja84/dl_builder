@@ -1,0 +1,36 @@
+<div class="mdc-layout-grid grid">
+  <div class="mdc-layout-grid__inner grid">
+    <div class="mdc-layout-grid__cell--span-4"></div>
+    <div class="mdc-layout-grid__cell--span-4">
+        <h1 class="mdc-typography--display1">Let's give this thing a name!</h1>
+
+        <form  id="greeting-form">
+          <div>
+            <div class="mdc-form-field">
+              <div class="mdc-text-field mdc-text-field--upgraded">
+                <input type="text" id="pre-filled" class="mdc-text-field__input" value="">
+                <label class="mdc-text-field__label mdc-text-field__label--float-above" for="pre-filled">
+                  Slide Deck Name
+                </label>
+                <div class="mdc-text-field__bottom-line"></div>
+              </div>
+              <p class="mdc-text-field-helper-text" aria-hidden="true">
+                This will be displayed on your public profile
+              </p>
+            </div>
+          </div>
+
+          <button type="submit"
+                  class="mdc-button
+                         mdc-button--raised
+                         mdc-ripple-surface"
+                  data-mdc-auto-init="MDCRipple"
+
+                   (click)="sendRequest()">
+            Next
+          </button>
+        </form>
+    </div>
+    <div class="mdc-layout-grid__cell--span-4"></div>
+  </div>
+</div>

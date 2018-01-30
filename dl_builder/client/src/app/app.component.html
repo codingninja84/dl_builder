@@ -1,0 +1,7 @@
+<div class="wrapper">
+  <app-header></app-header>
+  <app-sidebar (displayForm)="display_form($event)"></app-sidebar>
+  <app-popup></app-popup>
+  <div class="full-width"></div>
+  <app-new-slide-form *ngIf="this.showSlideForm==true"></app-new-slide-form>
+</div>
