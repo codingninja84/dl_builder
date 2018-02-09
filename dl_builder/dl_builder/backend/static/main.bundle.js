@@ -99,6 +99,7 @@ var popup_component_1 = __webpack_require__("../../../../../src/app/popup/popup.
 var generate_slide_component_1 = __webpack_require__("../../../../../src/app/sidebar/generate-slide/generate-slide.component.ts");
 var new_slide_form_component_1 = __webpack_require__("../../../../../src/app/new-slide-form/new-slide-form.component.ts");
 var http_1 = __webpack_require__("../../../common/esm5/http.js");
+var new_slide_service_1 = __webpack_require__("../../../../../src/app/new-slide-form/new-slide.service.ts");
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }
@@ -121,7 +122,7 @@ var AppModule = /** @class */ (function () {
                     headerName: 'X-CSRFToken',
                 }),
             ],
-            providers: [],
+            providers: [new_slide_service_1.NewSlideService],
             bootstrap: [app_component_1.AppComponent]
         })
     ], AppModule);
@@ -214,7 +215,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/new-slide-form/new-slide-form.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"mdc-layout-grid grid\">\n  <div class=\"mdc-layout-grid__inner grid\">\n    <div class=\"mdc-layout-grid__cell--span-4\"></div>\n    <div class=\"mdc-layout-grid__cell--span-4\">\n        <h1 class=\"mdc-typography--display1\">Let's give this thing a name!</h1>\n\n        <form  id=\"greeting-form\">\n          <div>\n            <div class=\"mdc-form-field\">\n              <div class=\"mdc-text-field mdc-text-field--upgraded\">\n                <input type=\"text\" id=\"pre-filled\" class=\"mdc-text-field__input\" value=\"\">\n                <label class=\"mdc-text-field__label mdc-text-field__label--float-above\" for=\"pre-filled\">\n                  Slide Deck Name\n                </label>\n                <div class=\"mdc-text-field__bottom-line\"></div>\n              </div>\n              <p class=\"mdc-text-field-helper-text\" aria-hidden=\"true\">\n                This will be displayed on your public profile\n              </p>\n            </div>\n          </div>\n\n          <button type=\"submit\"\n                  class=\"mdc-button\n                         mdc-button--raised\n                         mdc-ripple-surface\"\n                  data-mdc-auto-init=\"MDCRipple\"\n\n                   (click)=\"sendRequest()\">\n            Next\n          </button>\n        </form>\n    </div>\n    <div class=\"mdc-layout-grid__cell--span-4\"></div>\n  </div>\n</div>\n"
+module.exports = "<div class=\"mdc-layout-grid grid\">\n  <div class=\"mdc-layout-grid__inner grid\">\n    <div class=\"mdc-layout-grid__cell--span-4\"></div>\n    <div class=\"mdc-layout-grid__cell--span-4\">\n        <h1 class=\"mdc-typography--display1\">Let's give this thing a name!</h1>\n\n        <form  id=\"greeting-form\">\n          <div>\n            <div class=\"mdc-form-field\">\n              <div class=\"mdc-text-field mdc-text-field--upgraded\">\n                <input type=\"text\" id=\"pre-filled\" class=\"mdc-text-field__input\" value=\"\">\n                <label class=\"mdc-text-field__label mdc-text-field__label--float-above\" for=\"pre-filled\">\n                  Slide Deck Name\n                </label>\n                <div class=\"mdc-text-field__bottom-line\"></div>\n              </div>\n              <p class=\"mdc-text-field-helper-text\" aria-hidden=\"true\">\n                This will be displayed on your public profile\n              </p>\n            </div>\n          </div>\n\n          <button type=\"submit\"\n                  class=\"mdc-button\n                         mdc-button--raised\n                         mdc-ripple-surface\"\n                  data-mdc-auto-init=\"MDCRipple\"\n                   (click)=\"sendRequest()\">\n            Next\n          </button>\n        </form>\n    </div>\n    <div class=\"mdc-layout-grid__cell--span-4\"></div>\n  </div>\n</div>\n"
 
 /***/ }),
 
@@ -234,17 +235,25 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = __webpack_require__("../../../core/esm5/core.js");
-__webpack_require__("../../../../rxjs/_esm5/add/operator/map.js");
-var http_1 = __webpack_require__("../../../common/esm5/http.js");
+var new_slide_service_1 = __webpack_require__("../../../../../src/app/new-slide-form/new-slide.service.ts");
+var Rx_1 = __webpack_require__("../../../../rxjs/_esm5/Rx.js");
 var NewSlideFormComponent = /** @class */ (function () {
-    function NewSlideFormComponent(http) {
-        this.http = http;
+    function NewSlideFormComponent(_newSlideService) {
+        this._newSlideService = _newSlideService;
     }
     NewSlideFormComponent.prototype.ngOnInit = function () {
     };
     NewSlideFormComponent.prototype.sendRequest = function () {
-        return this.http.post("http://localhost:8000/links/", "test")
-            .map(function (data) { return console.log(data); }).toPromise();
+        var obj = { name: "Testing" };
+        this._newSlideService.newSlide(obj).subscribe(function (data) {
+            // refresh the list
+            console.log(data);
+            return true;
+        }, function (error) {
+            console.error("Error saving food!");
+            console.log(error);
+            return Rx_1.Observable.throw(error);
+        });
     };
     NewSlideFormComponent = __decorate([
         core_1.Component({
@@ -252,11 +261,51 @@ var NewSlideFormComponent = /** @class */ (function () {
             template: __webpack_require__("../../../../../src/app/new-slide-form/new-slide-form.component.html"),
             styles: [__webpack_require__("../../../../../src/app/new-slide-form/new-slide-form.component.css")]
         }),
-        __metadata("design:paramtypes", [http_1.HttpClient])
+        __metadata("design:paramtypes", [new_slide_service_1.NewSlideService])
     ], NewSlideFormComponent);
     return NewSlideFormComponent;
 }());
 exports.NewSlideFormComponent = NewSlideFormComponent;
+
+
+/***/ }),
+
+/***/ "../../../../../src/app/new-slide-form/new-slide.service.ts":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var core_1 = __webpack_require__("../../../core/esm5/core.js");
+var http_1 = __webpack_require__("../../../common/esm5/http.js");
+var httpOptions = {
+    headers: new http_1.HttpHeaders({ 'Content-Type': 'application/json' })
+};
+var NewSlideService = /** @class */ (function () {
+    function NewSlideService(http) {
+        this.http = http;
+    }
+    NewSlideService.prototype.newSlide = function (obj) {
+        var body = JSON.stringify(obj);
+        console.log(obj);
+        return this.http.post('http://localhost:8000/links/', body, httpOptions);
+    };
+    NewSlideService = __decorate([
+        core_1.Injectable(),
+        __metadata("design:paramtypes", [http_1.HttpClient])
+    ], NewSlideService);
+    return NewSlideService;
+}());
+exports.NewSlideService = NewSlideService;
 
 
 /***/ }),

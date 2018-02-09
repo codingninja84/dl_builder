@@ -9,6 +9,8 @@ import { PopupComponent } from './popup/popup.component';
 import { GenerateSlideComponent } from './sidebar/generate-slide/generate-slide.component';
 import { NewSlideFormComponent } from './new-slide-form/new-slide-form.component';
 import {HttpClientModule, HttpClientXsrfModule} from '@angular/common/http';
+import { NewSlideService } from './new-slide-form/new-slide.service';
+import { FormsModule }   from '@angular/forms';
 
 
 @NgModule({
@@ -24,12 +26,13 @@ import {HttpClientModule, HttpClientXsrfModule} from '@angular/common/http';
     BrowserModule,
     HttpClientModule,
     HttpClientModule,
+    FormsModule,
     HttpClientXsrfModule.withOptions({
   cookieName: 'csrftoken',
   headerName: 'X-CSRFToken',
 }),
   ],
-  providers: [],
+  providers: [NewSlideService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -2,13 +2,13 @@
   <div class="mdc-layout-grid__inner grid">
     <div class="mdc-layout-grid__cell--span-4"></div>
     <div class="mdc-layout-grid__cell--span-4">
-        <h1 class="mdc-typography--display1">Let's give this thing a name!</h1>
 
-        <form  id="greeting-form">
+        <form #postData="ngForm" (submit)="sendRequest(postData)" *ngIf="display_name_deck_form" id="greeting-form">
+          <h1 class="mdc-typography--display1">Let's give this thing a name!</h1>
           <div>
             <div class="mdc-form-field">
               <div class="mdc-text-field mdc-text-field--upgraded">
-                <input type="text" id="pre-filled" class="mdc-text-field__input" value="">
+                <input type="text" id="pre-filled" class="mdc-text-field__input" [(ngModel)]="deck_name" name="deck_name" value="">
                 <label class="mdc-text-field__label mdc-text-field__label--float-above" for="pre-filled">
                   Slide Deck Name
                 </label>
@@ -21,15 +21,50 @@
           </div>
 
           <button type="submit"
-                  class="mdc-button
-                         mdc-button--raised
-                         mdc-ripple-surface"
-                  data-mdc-auto-init="MDCRipple"
-
-                   (click)="sendRequest()">
+                  class="mdc-button mdc-button--raised mdc-ripple-surface"
+                  data-mdc-auto-init="MDCRipple">
             Next
           </button>
         </form>
+        <form #test="ngForm"  id="push" *ngIf="!display_name_deck_form">
+          <h1 class="mdc-typography--display1">Populate the Push</h1>
+          <div class="mdc-form-field">
+            <div class="mdc-text-field mdc-text-field--upgraded">
+              <input type="text" id="filled" class="mdc-text-field__input" [(ngModel)]="key" name="key" value="">
+              <label class="mdc-text-field__label mdc-text-field__label--float-above" for="filled">
+                Push Key
+              </label>
+              <div class="mdc-text-field__bottom-line"></div>
+            </div>
+          </div>
+          <div class="mdc-form-field">
+            <div class="mdc-text-field mdc-text-field--upgraded">
+              <input type="text" id="test" class="mdc-text-field__input" [(ngModel)]="value" name="value" value="">
+              <label class="mdc-text-field__label mdc-text-field__label--float-above" for="test">
+                Push Value
+              </label>
+              <div class="mdc-text-field__bottom-line"></div>
+            </div>
+          </div>
+          <button (click)="addPush()" class="mdc-fab material-icons" aria-label="add" data-mdc-auto-init="MDCRipple">
+            <span class="mdc-fab__icon">
+              add
+            </span>
+          </button>
+        </form>
+        <div class="mdc-list-group" *ngIf="push_values.length > 0">
+          <h3 class="mdc-list-group__subheader">Current Push Values</h3>
+          <ul class="mdc-list mdc-elevation--z2">
+            <li *ngFor="let item of push_values" class="mdc-list-item">
+              Key: {{item.key[0]}} | Value: {{item.key[1]}}
+            </li>
+          </ul>
+          <button (click)="submitPush()" type="button"
+                  class="mdc-button mdc-button--raised mdc-ripple-surface"
+                  data-mdc-auto-init="MDCRipple">
+            Submit Push
+          </button>
+        </div>
     </div>
     <div class="mdc-layout-grid__cell--span-4"></div>
   </div>

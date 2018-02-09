@@ -14,4 +14,6 @@ export class AppComponent {
         console.log("here")
         this.showSlideForm = this.showSlideForm == true ? false : true;
   }
+
+
 }

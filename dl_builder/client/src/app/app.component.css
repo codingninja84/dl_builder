@@ -15,3 +15,17 @@ app-new-slide-form {
   width:100%;
   height: auto;
 }
+
+.thumbnail iframe {
+  width: 100%;
+  height: 100%;
+}
+
+div.docs-chrome{
+  display: none;
+}
+
+
+#docs-chrome {
+  display : none;
+}
