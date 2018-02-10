@@ -33,9 +33,9 @@ sendRequest(postData){
     let obj = {name: this.deck_name};
     let data = this._newSlideService.newSlide(obj).subscribe(
        data => {
-         // refresh the list
          console.log(data)
-         this.deck_id = data
+         this.deck_id = data['deck_id']
+         console.log(this.deck_id)
          return true;
        },
        error => {
@@ -55,10 +55,10 @@ addPush(){
 }
 
 submitPush(){
-  let obj = {body: [this.push_values, this.deck_id]};
+  let obj = {values: this.push_values, id: this.deck_id};
   this._newSlideService.newPush(obj).subscribe(
      data => {
-       // refresh the list
+
        console.log(data)
        return true;
      },
