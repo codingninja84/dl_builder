@@ -1,4 +1,50 @@
 /* You can add global styles to this file, and also import other style files */
+*{
+  color: #303030 !important;
+}
+
 body {
-  height: 100%
+  height: 100%;
+  overflow: scroll !important;
+}
+
+.mdc-dialog__footer__button:hover {
+  background-color: rgba(89, 170, 118, 0.6) !important;
+  color: #fff !important;
+}
+
+.mdc-ripple-upgraded--background-focused {
+  background-color: rgba(89, 170, 118, 0.7) !important;
+}
+
+.mdc-ripple-upgraded {
+  background-color: rgba(89, 170, 118, 0) !important;
+}
+
+
+.mdc-primary {
+  background-color: #0083BB !important;
+  color: #fff !important;
+}
+
+.mdc-secondary {
+  background-color: #BDBDBE !important;
+  color: #fff !important;
+}
+
+.mdc-secondary-text {
+  color: #5e5e5e !important;
+}
+
+.mdc-light-text {
+  color: #ddd !important;
+}
+
+i {
+  color: #3e3e3e !important
+}
+
+.primary-button {
+  background-color: #29BF89 !important;
+  color: #fff !important;
 }

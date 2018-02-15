@@ -5,7 +5,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse, JsonResponse
 import json
 
-from slides import create_new_deck, new_push
+from slides import create_new_deck, add_push
 
 # Create your views here.
 class HomePageView(TemplateView):
@@ -14,12 +14,16 @@ class HomePageView(TemplateView):
 
 @csrf_exempt
 def create_slide(request):
+    result = {}
     data = json.loads(request.body);
-    result = create_new_deck(data)
-
+    result['deck_id'] = create_new_deck(data)
     return JsonResponse(result)
 
+@csrf_exempt
 def new_push(request):
-    data = json.loads(request);
-    result = new_push(data)
-    return JsonResponse(data)
+    result = {}
+    data = json.loads(request.body)
+    values = data['values']
+    result['status'] = add_push(data)
+    print result
+    return JsonResponse(result)

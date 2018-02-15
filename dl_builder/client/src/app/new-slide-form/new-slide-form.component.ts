@@ -49,7 +49,7 @@ sendRequest(postData){
 addPush(){
   let key = this.key;
   let value = this.value;
-  this.push_values.push({key : [key, value]})
+  this.push_values.push({key : key, value : value})
   this.key = "";
   this.value = "";
 }

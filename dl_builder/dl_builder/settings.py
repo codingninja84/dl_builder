@@ -38,9 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'corsheaders',
-    'clear_cache',
-    'social_django'
+    'corsheaders'
 ]
 
 MIDDLEWARE = [
@@ -50,6 +48,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.common.CommonMiddleware',
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
 ]
@@ -86,6 +85,11 @@ AUTHENTICATION_BACKENDS = (
 
 WSGI_APPLICATION = 'dl_builder.wsgi.application'
 
+
+CORS_ORIGIN_WHITELIST = (
+    'localhost:8000',
+    'localhost:4200'
+)
 
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases

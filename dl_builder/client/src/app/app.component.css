@@ -6,8 +6,10 @@
   width: 100vw;
 }
 
+
 app-new-slide-form {
   min-width: 90%;
+  min-height: 100%;
   height: auto;
 }
 
@@ -16,16 +18,13 @@ app-new-slide-form {
   height: auto;
 }
 
-.thumbnail iframe {
+
+.main-content {
+  min-height: 90vh;
+  height: auto;
   width: 100%;
-  height: 100%;
-}
-
-div.docs-chrome{
-  display: none;
-}
-
-
-#docs-chrome {
-  display : none;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  flex-direction: column;
 }

@@ -26,13 +26,11 @@ def create_new_deck(slide):
 
 
 
-def new_push(push_data):
-    deck_id = push_data.body[1]
-    body = push.push_data[0]
-    print deck_id
-    print body
+def add_push(push_data):
+    deck_id = push_data['id']
+    body = push_data['values']
     deck = slides.presentations().get(presentationId=deck_id, fields='slides').execute().get('slides', [])
-    print deck
+
     obj = None
 
     for obj in deck:
@@ -41,27 +39,18 @@ def new_push(push_data):
 
     description = 'When a video starts playing either in a video player or on a video details page, the following code should fire:'
     title = "Video Engagement"
-    push = """
-    dataLayer.push({
-        'event': 'video-engagement',
-        'videoAction': 'play',
-        'videoLength': <video length>,
-        'mediaId': '<media id>',
-        'mediaType': 'video',
-        'videoPercent': '<percent played>',
-        'mediaTier1': '<show title>',
-        'mediaTier2': '<season name>',
-        'mediaTier3': '<episode title>',
-        'franchise': '<franchise>'
-    });
-    """
+    dataLayer = {}
+    key = body[0]['key'][0]
+    dataLayer[key] = body[0]['key'][1]
 
+    push = json.dumps(dataLayer)
+    print
     reqs = [
     {'replaceAllText': {'replaceText': push, 'containsText': {'text': '{{DL - PUSH}}', 'matchCase': True}}},
     {'replaceAllText': {'replaceText': description, 'containsText': {'text': '{{Push - Description}}', 'matchCase': True}}},
     {'replaceAllText': {'replaceText': title, 'containsText': {'text': '{{Title - Here}}', 'matchCase': True}}}
     ]
-
+    print deck_id
 
     slides.presentations().batchUpdate(body={'requests':reqs},presentationId=deck_id, fields="").execute();
 

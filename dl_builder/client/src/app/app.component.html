@@ -2,12 +2,8 @@
   <app-header></app-header>
   <app-sidebar (displayForm)="display_form($event)"></app-sidebar>
   <app-popup></app-popup>
-  <div class="full-width" id="main-container">
-    <div class="thumbnail-container">
-    <div class="thumbnail">
-    </div>
+  <div class="main-content">
+    <app-new-slide-form *ngIf="this.showSlideForm==true"></app-new-slide-form>
   </div>
-  </div>
-  <app-new-slide-form *ngIf="this.showSlideForm==true"></app-new-slide-form>
 
 </div>
