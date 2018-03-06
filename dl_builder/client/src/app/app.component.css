@@ -1,14 +1,15 @@
 .wrapper {
   display: flex;
   flex-direction: row;
-  justify-content: center;
-  align-items: center;
   width: 100vw;
+  height: auto;
+  min-height: 100vh;
 }
 
 
 app-new-slide-form {
-  min-width: 90%;
+  min-width: 70%;
+  width: 100%;
   min-height: 100%;
   height: auto;
 }
@@ -22,9 +23,24 @@ app-new-slide-form {
 .main-content {
   min-height: 90vh;
   height: auto;
-  width: 100%;
+  width: 80vw;
+  position: relative;
+  right: 0px;
+  top: 0px;
   display: flex;
   justify-content: center;
-  align-content: center;
+  align-items: center;
   flex-direction: column;
+  padding: 2rem;
+}
+
+.headline {
+  width: 30%;
+  text-align: center;
+}
+
+.sidebar {
+  position: relative;
+  top: 0px;
+  left:0px;
 }

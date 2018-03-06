@@ -4,7 +4,8 @@
 }
 
 body {
-  height: 100%;
+  height: auto;
+  min-height: 100vh;
   overflow: scroll !important;
 }
 
@@ -23,7 +24,7 @@ body {
 
 
 .mdc-primary {
-  background-color: #0083BB !important;
+  background-color: #424242 !important;
   color: #fff !important;
 }
 
@@ -40,6 +41,10 @@ body {
   color: #ddd !important;
 }
 
+.mdc-bright-text {
+  color: #29BF89 !important;
+}
+
 i {
   color: #3e3e3e !important
 }
@@ -47,4 +52,13 @@ i {
 .primary-button {
   background-color: #29BF89 !important;
   color: #fff !important;
+}
+
+button:before {
+  background-color: transparent !important
+}
+
+
+h2 {
+  font-size: 1.4rem !important;
 }

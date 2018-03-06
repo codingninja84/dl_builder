@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NewSlideService } from "./new-slide.service"
 import {Observable} from 'rxjs/Rx';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import {MDCSnackbar} from '@material/snackbar';
 
 @Component({
   selector: 'app-new-slide-form',
@@ -48,14 +49,32 @@ sendRequest(postData){
 
 addPush(){
   let key = this.key;
+  let deck_id = this.deck_id
   let value = this.value;
   this.push_values.push({key : key, value : value})
   this.key = "";
   this.value = "";
+  const snackbar = new MDCSnackbar(document.querySelector('.mdc-snackbar'));
+  const dataObj = {
+  message: "See changes",
+  timeout: 5000,
+  actionText: 'Preview',
+  actionHandler: function () {
+    console.log(deck_id)
+    window.open('https://docs.google.com/presentation/d/'+deck_id+'/edit', '_blank')
+  }
+};
+  snackbar.show(dataObj)
 }
 
 submitPush(){
-  let obj = {values: this.push_values, id: this.deck_id};
+  let push_values = {}
+  for (var i = 0; i < this.push_values.length; i++){
+  let keys_array =  Object.values(this.push_values[i])
+      push_values[keys_array[0]] = keys_array[1]
+  }
+  console.log(push_values)
+  let obj = {values: push_values, id: this.deck_id};
   this._newSlideService.newPush(obj).subscribe(
      data => {
 

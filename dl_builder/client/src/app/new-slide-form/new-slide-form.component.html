@@ -1,4 +1,4 @@
-<div class="form-row">
+<div class="form-row" *ngIf="display_name_deck_form">
   <div *ngIf="display_name_deck_form" class="new-form">
     <form #postData="ngForm" (submit)="sendRequest(postData)"  id="greeting-form">
         <h1 class="mdc-typography--display1">Let's give this thing a name!</h1>
@@ -23,10 +23,33 @@
         </button>
       </form>
   </div>
-    <form #test="ngForm"  id="push" *ngIf="!display_name_deck_form">
-    <h1 class="mdc-typography--display1">
-      Populate the Push
-    </h1>
+</div>
+  <div class="form-row-tiny" *ngIf="!display_name_deck_form">
+    <div class="push-nav-header mdc-elevation--z2 box">
+      <h4 class="medium-header mdc-typography--display1 mdc-light-text">
+        Now Building: {{this.deck_name}} - Version 1.0
+      </h4>
+      <p class="mdc-typography mdc-light-text">Enter the key value pairs that you wish to insert into the push</p>
+      <p class="mdc-typography mdc-light-text">Select formating and select slide number</p>
+      <div class="push-nav-subheader">
+        <div class="push-nav-subheader-left">
+          <p class="mdc-typography push-links mdc-secondary-text">Build Push</p>
+          <p class="mdc-typography push-links mdc-secondary-text">Assign Event C/A/L</p>
+          <p class="mdc-typography push-links mdc-secondary-text">Copy Existing Push</p>
+          <p class="mdc-typography push-links mdc-secondary-text">Generate New Slide</p>
+        </div>
+        <div class="push-nav-subheader-right">
+          test
+        </div>
+      </div>
+    </div>
+    <form #test="ngForm" class="mdc-elevation--z2 cards">
+      <div class="top-border-push">
+        <h1 class="mdc-typography--display1 mdc-light-text medium-header">
+          Populate the Push
+        </h1>
+      </div>
+      <div class="bottom-border">
     <div class="mdc-form-field">
       <div class="mdc-text-field mdc-text-field--upgraded">
         <input type="text" id="filled" class="mdc-text-field__input" [(ngModel)]="key" name="key" value="">
@@ -50,11 +73,49 @@
         add
       </span>
     </button>
+    </div>
   </form>
-</div>
+  <form #test2="ngForm" class="mdc-elevation--z2 cards">
+    <div class="top-border-options">
+      <h1 class="mdc-typography--display1 mdc-light-text medium-header">
+        Configure Event Fields
+      </h1>
+      <p class="mdc-light-text mdc-typography">Select which values will populate the hit.</p>
+    </div>
+    <div class="bottom-border">
+      <div class="mdc-form-field">
+        <div class="mdc-text-field mdc-text-field--upgraded">
+          <input type="text" id="filled" class="mdc-text-field__input" [(ngModel)]="key" name="key" value="">
+          <label class="mdc-text-field__label mdc-text-field__label--float-above" for="filled">
+            Category
+          </label>
+          <div class="mdc-text-field__bottom-line"></div>
+        </div>
+      </div>
+      <div class="mdc-form-field">
+        <div class="mdc-text-field mdc-text-field--upgraded">
+          <input type="text" id="test" class="mdc-text-field__input" [(ngModel)]="value" name="value" value="">
+          <label class="mdc-text-field__label mdc-text-field__label--float-above" for="test">
+            Action
+          </label>
+          <div class="mdc-text-field__bottom-line"></div>
+        </div>
+      </div>
+      <div class="mdc-form-field">
+        <div class="mdc-text-field mdc-text-field--upgraded">
+          <input type="text" id="test" class="mdc-text-field__input" [(ngModel)]="value" name="value" value="">
+          <label class="mdc-text-field__label mdc-text-field__label--float-above" for="test">
+            Label
+          </label>
+          <div class="mdc-text-field__bottom-line"></div>
+        </div>
+      </div>
+    </div>
+  </form>
+  </div>
 <div class="form-row" *ngIf="!display_name_deck_form">
-  <div class="mdc-list-group" *ngIf="push_values.length > 0">
-    <h3 class="mdc-list-group__subheader">Current Push Values</h3>
+  <div class="mdc-list-group dataLayer" *ngIf="push_values.length > 0">
+    <h1 class="mdc-typography--display1">Current Push Values</h1>
     <ul class="mdc-list mdc-elevation--z2 box">
       <p class="push">dataLayer.push({{'{'}}</p>
       <li *ngFor="let item of push_values" class="mdc-list-item">
@@ -62,20 +123,27 @@
       </li>
       <p class="push">{{'}'}})</p>
     </ul>
-    <button (click)="submitPush()" type="button"
-            class="mdc-button mdc-button--raised mdc-ripple-surface sendPush primary-button"
-            data-mdc-auto-init="MDCRipple">
-      Submit Push
-    </button>
   </div>
-  <div class="options" *ngIf="push_values.length > 0">
-    <h3 class="mdc-list-group__subheader">Select Formating Options</h3>
-    <select class="" name="">
-      <option value="1">Snake Case</option>
-      <option value="2">Camel Case</option>
-      <option value="3">Capitalize Key</option>
-      <option value="4">Single Quotes</option>
-      <option value="5">Double Quotes</option>
-    </select>
+  <div class="mdc-list-group event-fields" *ngIf="push_values.length > 0">
+    <h1 class="mdc-typography--display1">Event Fields</h1>
+    <ul class="mdc-list mdc-elevation--z2 box">
+      <li *ngFor="let item of push_values" class="mdc-list-item">
+        <p>'{{item.key}}': '{{item.value}}'</p>
+      </li>
+    </ul>
+  </div>
+  <button id="submit" *ngIf="push_values.length > 0" (click)="submitPush()" type="button"
+          class="mdc-button mdc-button--raised mdc-ripple-surface sendPush primary-button"
+          data-mdc-auto-init="MDCRipple">
+    Submit Push
+  </button>
+</div>
+<div class="mdc-snackbar"
+     aria-live="assertive"
+     aria-atomic="true"
+     aria-hidden="true">
+  <div class="mdc-snackbar__text mdc-light-text"></div>
+  <div class="mdc-snackbar__action-wrapper mdc-bright-text">
+    <button type="button" class="mdc-snackbar__action-button mdc-bright-text"></button>
   </div>
 </div>

@@ -1,9 +1,30 @@
 <div class="wrapper">
   <app-header></app-header>
-  <app-sidebar (displayForm)="display_form($event)"></app-sidebar>
+  <app-sidebar (displayForm)="display_form($event)" class="sidebar"></app-sidebar>
   <app-popup></app-popup>
   <div class="main-content">
     <app-new-slide-form *ngIf="this.showSlideForm==true"></app-new-slide-form>
+    <div class="headline" *ngIf="!this.showSlideForm==true">
+      <h1 class="mdc-typography--display1">You've built:</h1>
+      <h3 class="mdc-secondary-text">17 Implementation Specs</h3>
+      <h3 class="mdc-secondary-text">3 Implementation Audits</h3>
+      <div id="container" style="width:800px;height:600px;border:1px solid grey"></div>
+
+<script src="monaco-editor/min/vs/loader.js"></script>
+<script>
+    require.config({ paths: { 'vs': 'monaco-editor/min/vs' }});
+    require(['vs/editor/editor.main'], function() {
+        var editor = monaco.editor.create(document.getElementById('container'), {
+            value: [
+                'function x() {',
+                '\tconsole.log("Hello world!");',
+                '}'
+            ].join('\n'),
+            language: 'javascript'
+        });
+    });
+</script> 
+    </div>
   </div>
 
 </div>
